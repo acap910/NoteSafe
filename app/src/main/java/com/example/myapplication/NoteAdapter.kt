@@ -1,4 +1,4 @@
-package com.example.myapplication // ⚠️ PASTIKAN PACKAGE NAME BETUL
+package com.example.myapplication
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 class NoteAdapter(
     private var notes: MutableList<Note>,
-    private val onItemClick: (Note) -> Unit // TAMBAH INI: Untuk kesan tekanan (click)
+    private val onItemClick: (Note) -> Unit
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+
+    // SECURITY STATE: Default is locked (censored)
+    private var isVaultUnlocked = false
 
     class NoteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvTitle)
@@ -22,22 +25,35 @@ class NoteAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val currentNote = notes[position]
-        holder.tvTitle.text = currentNote.title
-        holder.tvContent.text = currentNote.content
+        val note = notes[position]
+        holder.tvTitle.text = note.title
 
-        // TAMBAH INI: Apabila item ditekan, panggil fungsi onItemClick
-        holder.itemView.setOnClickListener {
-            onItemClick(currentNote)
+        // CENSOR LOGIC: Mask content if locked
+        if (isVaultUnlocked) {
+            holder.tvContent.text = note.content
+            holder.tvContent.alpha = 1.0f
+        } else {
+            holder.tvContent.text = "••••••••••••••••••••" // Masked text
+            holder.tvContent.alpha = 0.3f // Blurred effect
         }
+
+        holder.itemView.setOnClickListener { onItemClick(note) }
     }
 
-    override fun getItemCount(): Int = notes.size
+    override fun getItemCount() = notes.size
 
-    fun getNoteAt(position: Int): Note = notes[position]
+    fun getNoteAt(pos: Int) = notes[pos]
 
     fun updateData(newNotes: List<Note>) {
         notes = newNotes.toMutableList()
         notifyDataSetChanged()
     }
+
+    // Toggle the security state
+    fun setVaultState(unlocked: Boolean) {
+        isVaultUnlocked = unlocked
+        notifyDataSetChanged()
+    }
+
+    fun isUnlocked() = isVaultUnlocked
 }
