@@ -2,16 +2,29 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5"
-    tools:context=".MainActivity">
+    android:background="@color/bg_light">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@color/white">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="SafeKeep Vision"
+            app:titleTextColor="@color/primary_modern"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -21,97 +34,34 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/homeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible">
-
+                android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SafeKeep Vision"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:textColor="#1A237E" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Offline Note Vault"
-                        android:textSize="14sp"
-                        android:textColor="#5C6BC0"
-                        android:layout_marginBottom="20dp"/>
-
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="15dp"
-                        app:cardElevation="4dp">
-
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/white">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <EditText
-                                android:id="@+id/etTitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Tajuk Nota"
-                                android:background="@null"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A237E" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#DDDDDD"
-                                android:layout_marginVertical="10dp" />
-
-                            <EditText
-                                android:id="@+id/etContent"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Tulis nota atau scan teks..."
-                                android:background="@null"
-                                android:minLines="3"
-                                android:gravity="top"
-                                android:textColor="#424242" />
+                            android:padding="20dp">
+                            <EditText android:id="@+id/etTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Note Title" android:background="@null" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/text_main" />
+                            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E2E8F0" android:layout_marginVertical="12dp" />
+                            <EditText android:id="@+id/etContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Write something or scan text..." android:background="@null" android:minLines="3" android:gravity="top" android:textColor="@color/text_secondary" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <Button
-                        android:id="@+id/btnSave"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="15dp"
-                        android:text="SIMPAN NOTA OFFLINE"
-                        android:textSize="16sp"
-                        app:cornerRadius="12dp"
-                        android:backgroundTint="#1A237E" />
+                    <Button android:id="@+id/btnSave" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:text="SAVE OFFLINE" app:cornerRadius="16dp" android:backgroundTint="@color/primary_modern" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Senarai Nota Tersimpan"
-                        android:layout_marginTop="30dp"
-                        android:textStyle="bold"
-                        android:textColor="#555555" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvNotes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clipToPadding="false"
-                        android:paddingBottom="20dp" />
-
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Recent Notes" android:layout_marginTop="28dp" android:textStyle="bold" android:textColor="@color/text_main" />
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvNotes" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
@@ -123,79 +73,25 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:padding="20dp">
-
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp">
-
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/white">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="25dp"
+                        android:padding="30dp"
                         android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@android:drawable/ic_menu_myplaces"
-                            app:tint="#1A237E"
-                            android:layout_marginBottom="15dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="KEMASKINI PROFIL"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:textColor="#1A237E"/>
-
-                        <View
-                            android:layout_width="60dp"
-                            android:layout_height="3dp"
-                            android:background="#FFD600"
-                            android:layout_marginVertical="10dp"/>
-
-                        <EditText
-                            android:id="@+id/etProfileName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Nama Penuh"
-                            android:background="@android:drawable/editbox_background"
-                            android:padding="12dp"
-                            android:layout_marginTop="10dp"/>
-
-                        <EditText
-                            android:id="@+id/etProfileID"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="ID Pelajar"
-                            android:background="@android:drawable/editbox_background"
-                            android:padding="12dp"
-                            android:layout_marginTop="10dp"/>
-
-                        <EditText
-                            android:id="@+id/etProfileCourse"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Kod Kursus (Cth: CSC661)"
-                            android:background="@android:drawable/editbox_background"
-                            android:padding="12dp"
-                            android:layout_marginTop="10dp"/>
-
-                        <Button
-                            android:id="@+id/btnUpdateProfile"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:text="SIMPAN PROFIL"
-                            android:layout_marginTop="20dp"
-                            android:backgroundTint="#1A237E"
-                            app:cornerRadius="10dp"/>
-
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="User Profile" android:textStyle="bold" android:textSize="20sp" android:textColor="@color/primary_modern" />
+                        <EditText android:id="@+id/etProfileName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Full Name" android:layout_marginTop="20dp" />
+                        <EditText android:id="@+id/etProfileID" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Student ID" android:layout_marginTop="10dp" />
+                        <EditText android:id="@+id/etProfileCourse" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Course Code" android:layout_marginTop="10dp" />
+                        <Button android:id="@+id/btnUpdateProfile" android:layout_width="match_parent" android:layout_height="56dp" android:text="UPDATE PROFILE" android:layout_marginTop="24dp" android:backgroundTint="@color/primary_modern" app:cornerRadius="16dp" />
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </FrameLayout>
 
@@ -203,13 +99,11 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="#1A237E"
-            app:itemTextColor="#1A237E"
-            app:labelVisibilityMode="labeled" />
-
-    </LinearLayout>
+            app:itemIconTint="@color/primary_modern"
+            app:itemTextColor="@color/primary_modern"
+            app:labelVisibilityMode="labeled" /> </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnScan"
@@ -219,8 +113,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="80dp"
         app:srcCompat="@android:drawable/ic_menu_camera"
-        app:backgroundTint="#FFD600"
-        app:tint="#000000"
-        app:elevation="8dp" />
+        app:backgroundTint="@color/accent_yellow"
+        app:tint="@color/text_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

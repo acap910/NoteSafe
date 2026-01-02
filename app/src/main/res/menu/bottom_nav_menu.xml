@@ -3,9 +3,9 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="Nota" />
+        android:title="Notes" />
     <item
         android:id="@+id/nav_info"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="Info Pelajar" />
+        android:title="Profile" />
 </menu>
